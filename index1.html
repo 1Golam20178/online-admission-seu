@@ -1016,23 +1016,22 @@
                                             nationality.</span>
                                 </div>
 
+
                                 <!-- Mobile Number -->
-                                <div>
-                                    <label for="mobileNumber" class="block text-sm font-medium text-gray-700">Mobile
-                                        Number*</label>
-                                    <div class="relative mt-1">
-                                        <input type="number" id="mobileNumber" name="mobileNumber"
-                                               placeholder="Enter your mobile number" required pattern="01[3-9]\d{8}"
-                                               oninvalid="this.setCustomValidity('Please enter a valid Bangladeshi mobile number with 11 digits.')"
-                                               oninput="this.setCustomValidity('')"
-                                               class="block w-full pl-14 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-                                        <span
-                                                class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">+880</span>
-                                    </div>
-                                    <span id="mobileNumberError" class="text-red-500 text-sm mt-1 hidden">Please
-                                            enter a valid mobile
-                                            number.</span>
-                                </div>
+<div>
+    <label for="mobileNumber" class="block text-sm font-medium text-gray-700">Mobile Number*</label>
+    <div class="relative mt-1">
+        <input type="text" id="mobileNumber" name="mobileNumber"
+               placeholder="Enter your mobile number" required
+               pattern="01[3-9]\d{8}"
+               oninvalid="showErrorMessage()"
+               oninput="validateMobileNumber()"
+               class="block w-full pl-14 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+        <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-500">+880</span>
+    </div>
+    <span id="mobileNumberError" class="text-red-500 text-sm mt-1 hidden">Please enter a valid Bangladeshi mobile number.</span>
+</div>
+                                
 
                                 <!-- Email Address -->
                                 <div>
@@ -2109,7 +2108,28 @@
 }
 
 
+//mobile varification
 
+   function showErrorMessage() {
+        const mobileNumberError = document.getElementById('mobileNumberError');
+        mobileNumberError.classList.remove('hidden');
+    }
+
+    function validateMobileNumber() {
+        const mobileNumberInput = document.getElementById('mobileNumber');
+        const mobileNumberError = document.getElementById('mobileNumberError');
+        const mobileNumberPattern = /^01[3-9]\d{8}$/;
+
+        if (mobileNumberPattern.test(mobileNumberInput.value)) {
+            mobileNumberError.classList.add('hidden');
+        } else {
+            mobileNumberError.classList.remove('hidden');
+        }
+
+        mobileNumberInput.setCustomValidity(
+            mobileNumberPattern.test(mobileNumberInput.value) ? '' : 'Please enter a valid Bangladeshi mobile number with 11 digits.'
+        );
+    }
 
 
 
